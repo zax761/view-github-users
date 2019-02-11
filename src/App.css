@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+}
+
+.outer {
+  display: flex;
+}
+
+thead {
+  font-weight: bold;
+}
+
+.detail {
+  margin-left: 25%;
+}
+
+.detailContent {
+  width: 500px;
+  height: 500px;
+  border: 1px solid black;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+}
