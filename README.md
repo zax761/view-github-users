@@ -1,2 +1,2 @@
 # todo-list
-Just for practice
+A small practice to get several github users and view their basic information using react
