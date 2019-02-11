@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import axios from "axios";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, withRouter } from "react-router-dom";
 
 const Home = () => {
   return <h1>Home Page</h1>;
@@ -43,19 +43,6 @@ const UserList = props => {
           </tbody>
         </table>
       </div>
-      {/* <div className="detail">
-        <h1>Detail: </h1>
-        <div className="detailContent">
-          {detail ? (
-            <div>
-              <p>name: {detail.name}</p>
-              <p>location: {detail.location}</p>
-              <p>Following: {detail.following}</p>
-              <p>followers: {detail.followers}</p>
-            </div>
-          ) : null}
-        </div>
-      </div> */}
     </div>
   );
 };
@@ -80,6 +67,11 @@ class Detail extends Component {
       });
   }
 
+  backHandler() {
+    // this.setState({ data: { login: "Back" } });
+    this.props.history.push("/users");
+  }
+
   render() {
     const { data } = this.state;
 
@@ -92,15 +84,18 @@ class Detail extends Component {
           <p>Following: {data.following}</p>
           <p>followers: {data.followers}</p>
         </div>
+        <button onClick={() => this.backHandler()}>Back</button>
       </div>
     );
   }
 }
 
+const WithRouterDetail = withRouter(Detail);
+
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { data: [] };
+    this.state = { data: [], back: false };
   }
 
   componentDidMount() {
@@ -126,7 +121,9 @@ class App extends Component {
           <Route
             exact
             path="/users/:login"
-            render={props => <Detail login={props.match.params.login} />}
+            render={props => (
+              <WithRouterDetail login={props.match.params.login} />
+            )}
           />
           <Route path="/:invalidPath" component={InvalidPath} />
         </Switch>
